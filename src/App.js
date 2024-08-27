@@ -4,6 +4,7 @@ import ItemList from './ItemList';
 import AddPage from './AddPage';
 import FinishPage from './FinishPage';
 import Cart from './Cart';
+import Ordered from './Ordered';
 function App() {
   return(
     <BrowserRouter>
@@ -13,6 +14,7 @@ function App() {
         <Route path="/addcart" element={<AddPage />} />
         <Route path="/finishadd" element={<FinishPage />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/ordered" element={<Ordered />} />
         <Route path="*" element={<main><h1>404 Not Found</h1></main>} />
       </Routes>
     </BrowserRouter>

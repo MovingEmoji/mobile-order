@@ -10,8 +10,11 @@ function CartCard(props) {
             if(item.id !== props.id) return true;
             return false;
         });
-        console.log(newCart);
+        if(newCart.length === 0) {
+            newCart = undefined;
+        }
         setCookie('cartItems', newCart);
+        
     }
 
     return(

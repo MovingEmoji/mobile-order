@@ -190,3 +190,10 @@ main {
 .Flex-Wrapper {
   display: flex;
 }
+
+.QRcode {
+  margin: auto;
+  margin-block: 50px;
+  padding: 0px;
+  border: thick double #000000;
+}

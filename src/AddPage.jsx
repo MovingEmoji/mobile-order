@@ -22,7 +22,7 @@ function AddPage() {
     
     function handleAdd() {
         var cart = cookies.cartItems;
-        if (cart === undefined) {
+        if (cart === undefined || cart === "undefined") {
             cart = [];
         }
         const id = cart.length;
@@ -44,7 +44,7 @@ function AddPage() {
                 <div className="Card-Wrapper AddItem-Wrapper">
                     <h2>商品を追加する</h2>
                     <div className="Image-Wrapper">
-                        <img src={"./images/" + cookies.ItemImage} className="Image-Wrapper"></img>
+                        <img src={"./images/" + cookies.ItemImage} className="Image-Wrapper" alt="item"></img>
                     </div>
                     <p>{cookies.ItemName}</p>
                     <div className="Flex-Wrapper Select-Wrapper">

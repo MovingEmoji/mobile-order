@@ -15,7 +15,7 @@ function ItemCard(props) {
     return(
         <div className="Card-Wrapper">
             <div className="Image-Wrapper">
-                <img src={"./images/" + props.image}></img>
+                <img src={"./images/" + props.image} alt="item"></img>
             </div>
             <p>{props.title}</p>
             <p className="Small-Wrapper">{text}</p>
