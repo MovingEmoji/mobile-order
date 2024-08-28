@@ -15,7 +15,7 @@ function Confirm() {
     const videoRef = useRef();
 
     const axiosInstance = axios.create({
-        baseURL: "http://localhost:8080",
+        baseURL: "https://api.tec-festival.com",
         headers: {
             'Content-Type': 'application/json',
             "Access-Control-Allow-Origin": "*"
@@ -41,7 +41,8 @@ function Confirm() {
             audio: false,
             video: {
                 width: 300,
-                height: 300
+                height: 300,
+                facingMode: 'environment'
             }
         })
             .then((stream) => {
@@ -51,7 +52,6 @@ function Confirm() {
                         videoRef.current.play();
                         scanQrCode()
                     }
-                    
                     
                 }
             })
@@ -99,7 +99,7 @@ function Confirm() {
         <main>
             <div className="Card-Wrapper">
                 <p>QRコードをスキャンして下さい。</p>
-                <video ref={ videoRef } style={{opacity : '0', position : 'absolute', width: 300, height: 300 }}/>
+                <video ref={ videoRef } style={{opacity : 0, position: 'absolute', width: 300, height: 300 }} className="Camera" autoPlay muted playsInline />
                 <canvas ref={canvasRef} style={{ width: '300px', height: '300px' }} className="Camera"/>
                 <p>注文ID</p>
                 <p className="Small-Wrapper" style={{ marginBottom : 40 + 'px'}}>{ uuid }</p>

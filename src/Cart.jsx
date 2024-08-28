@@ -2,24 +2,27 @@
 import { useCookies } from "react-cookie";
 import CartCard from "./CartCard";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 function Cart() {
 
     const [cookies, setCookie, removeCookie] = useCookies();
     const axiosInstance = axios.create({
-        baseURL: "http://localhost:8080",
+        baseURL: "https://api.tec-festival.com",
         headers: {
             'Content-Type': 'application/json',
             "Access-Control-Allow-Origin": "*"
         }
     });
 
+    const navigate = useNavigate();
+
     var ItemList = [];
     var count = 0;
     var totalCost = 0;
 
     function handleHome() {
-        window.location.href = "/";
+        navigate("/");
     }
 
     function handleOrder() {
@@ -27,7 +30,7 @@ function Cart() {
             .then(res => {
                 setCookie("orderID", res.data);
                 removeCookie("cartItems");
-                window.location.href = "/ordered";
+                navigate("/ordered");
             });
     }
 
@@ -58,7 +61,7 @@ function Cart() {
         );
     } else {
         if(cookies.orderID === undefined || cookies.orderID === "undefined") {
-            window.location.href = "/";
+            window.location.href = ("/");
         }
         
     }

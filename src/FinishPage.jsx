@@ -1,8 +1,11 @@
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router";
 
 function FinishPage() {
 
     const [cookies, setCookie, removeCookie] = useCookies();
+
+    const navigate = useNavigate();
 
     function handleCart() {
         setCookie('Chache', true);
@@ -10,7 +13,7 @@ function FinishPage() {
         removeCookie('ItemImage');
         removeCookie('ItemCount');
         removeCookie('ItemCost');
-        window.location.href = "/cart";
+        navigate("/cart");
     }
 
     function handleHome() {
@@ -41,7 +44,7 @@ function FinishPage() {
         );
     } else {
         if (cookies.Chache !== true) {
-            window.location.href = "/";
+            window.location.href = ("/");
         }
     }
 }

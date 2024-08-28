@@ -2,6 +2,7 @@
 import { useCookies } from "react-cookie"
 import { useState } from "react";
 import Select from "react-select";
+import { useNavigate } from "react-router-dom";
 
 function AddPage() {
 
@@ -13,8 +14,10 @@ function AddPage() {
     ];
     const [selectedValue, setSelectedValue] = useState(options[0]);
 
+    const navigate = useNavigate();
+
     function handleBack() {
-        window.location.href = "/";
+        navigate("/");
         removeCookie('ItemName');
         removeCookie('ItemImage');
         removeCookie('ItemCost');
@@ -35,7 +38,7 @@ function AddPage() {
         });
         setCookie('cartItems', cart);
         setCookie('ItemCount',  selectedValue.value);
-        window.location.href = "/finishadd";
+        navigate("/finishadd");
     }
     
     if (cookies.ItemName !== 'undefined' && cookies.ItemImage !== 'undefined' && cookies.ItemName !== undefined && cookies.ItemImage !== undefined) {
@@ -63,7 +66,7 @@ function AddPage() {
             </main>
         );
     } else {
-        window.location.href = "/";
+        window.location.href = ("/");
     }
 }
 

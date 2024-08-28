@@ -1,15 +1,18 @@
 import React from "react";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 function ItemCard(props) {
 
     const [cookies, setCookie] = useCookies();
 
+    const navigate = useNavigate();
+
     function handleClick() {
         setCookie('ItemName', props.title);
         setCookie('ItemImage', props.image);
         setCookie('ItemCost', props.cost);
-        window.location.href = "/addcart";
+        navigate("/addcart");
     }
     var text = props.text.replace("<br/>","\n");
     return(

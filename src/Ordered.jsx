@@ -1,11 +1,14 @@
 import { useCookies } from "react-cookie";
 import { QRCodeCanvas } from "qrcode.react";
+import { useNavigate } from "react-router-dom";
 
 function Ordered(props) {
 
+    const navigate = useNavigate();
+
     function handleCick() {
         removeCookie("orderID");
-        window.location.href = "/";
+        navigate("/");
     }
 
     const[cookies, removeCookie] = useCookies();
@@ -37,7 +40,7 @@ function Ordered(props) {
             
         )
     } else {
-        window.location.href = "/";
+        window.location.href = ("/");
     }
 
 }

@@ -18,7 +18,6 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/ordered" element={<Ordered />} />
         <Route path="/confirm" element={<Confirm />} />
-        <Route path="/test" element={<WebCameraTest />} />
         <Route path="*" element={<main><h1>404 Not Found</h1></main>} />
       </Routes>
     </BrowserRouter>
