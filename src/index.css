@@ -205,3 +205,63 @@ main {
   border-radius: 20px;
   border: solid 1px;
 }
+
+.Orders {
+  margin: auto;
+  margin-top: 80px;
+  width: 98vw;
+  height: 87vh;
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px #6868684b;
+
+  h2 {
+    text-align: center;
+    padding: 5px;
+    margin: 0;
+  }
+
+  .Order-Contents {
+    margin-inline: 5px;
+    display: flex;
+    height: 90%;
+    .Order-List {
+      width: 50%;
+      height: 100%;
+      box-shadow: 0px 0px 10px #6868684b;
+      margin: 5px;
+      border-radius: 10px;
+      overflow: scroll;
+    }
+  }
+}
+.Order-Card-Wrapper {
+  display: flex;
+  box-shadow: 0px 0px 10px #6868684b;
+  margin: 5px;
+  border-radius: 10px;
+
+  .Order-Card-Info {
+    width: 70%;
+  }
+  .Order-Card-Buttons {
+    width: 30%;
+    display: flex;
+  }
+  .Order-Button {
+    width: 50%;
+    font-size: 20px;
+    color: #FFFFFF;
+    background-color: #6ED46E;
+    border: none;
+    border-radius: 10px;
+    padding-block: 30px;
+    margin-inline-end: 5px;
+    margin-block: 5px;
+  }
+  p {
+    font-size: 25px;
+    padding: 0;
+    margin: 0;
+    margin-inline: 10px;
+  }
+}

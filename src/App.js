@@ -6,7 +6,7 @@ import FinishPage from './FinishPage';
 import Cart from './Cart';
 import Ordered from './Ordered';
 import Confirm from './Confirm';
-import WebCameraTest from './WebCameraTest';
+import Orders from './Orders';
 function App() {
   return(
     <BrowserRouter>
@@ -18,6 +18,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/ordered" element={<Ordered />} />
         <Route path="/confirm" element={<Confirm />} />
+        <Route path="/orders" element={<Orders />} />
         <Route path="*" element={<main><h1>404 Not Found</h1></main>} />
       </Routes>
     </BrowserRouter>

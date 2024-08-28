@@ -15,7 +15,8 @@ function Confirm() {
     const videoRef = useRef();
 
     const axiosInstance = axios.create({
-        baseURL: "https://api.tec-festival.com",
+        //baseURL: "https://api.tec-festival.com",
+        baseURL: "http://localhost:30003",
         headers: {
             'Content-Type': 'application/json',
             "Access-Control-Allow-Origin": "*"
