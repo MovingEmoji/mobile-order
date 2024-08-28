@@ -197,3 +197,11 @@ main {
   padding: 0px;
   border: thick double #000000;
 }
+
+.Camera {
+  padding: 10px;
+  margin: auto;
+  margin-block: 30px;
+  border-radius: 20px;
+  border: solid 1px;
+}

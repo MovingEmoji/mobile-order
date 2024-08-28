@@ -5,6 +5,8 @@ import AddPage from './AddPage';
 import FinishPage from './FinishPage';
 import Cart from './Cart';
 import Ordered from './Ordered';
+import Confirm from './Confirm';
+import WebCameraTest from './WebCameraTest';
 function App() {
   return(
     <BrowserRouter>
@@ -15,6 +17,8 @@ function App() {
         <Route path="/finishadd" element={<FinishPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/ordered" element={<Ordered />} />
+        <Route path="/confirm" element={<Confirm />} />
+        <Route path="/test" element={<WebCameraTest />} />
         <Route path="*" element={<main><h1>404 Not Found</h1></main>} />
       </Routes>
     </BrowserRouter>
