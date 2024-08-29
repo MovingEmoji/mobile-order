@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 
 function PendingCard(props) {
 
@@ -49,9 +48,9 @@ function PendingCard(props) {
                 <p>オーダー番号: { props.id }</p>
                 <p style={{ fontSize : 15 + 'px' }}>{ props.uuid }</p>
                 <div className="Order-Item-Info">
-                    <p>パ: { props.cake }</p>
-                    <p>ワ: { props.waffle }</p>
-                    <p>ダ: { props.dango }</p>
+                    <p>パ:{ props.cake }</p>
+                    <p>ワ:{ props.waffle }</p>
+                    <p>ダ:{ props.dango }</p>
                     <p style={{ color : '#000000'}}>合計: { props.total }円</p>
                 </div>
             </div>
