@@ -41,7 +41,7 @@ function Cart() {
         }
         for(const item of cookies.cartItems) {
             ItemList.push(
-                <CartCard keycount={count} image={item.image} name={item.name} count={item.count} cost={item.cost} id={item.id}/>
+                <CartCard keycount={count} image={item.image} name={item.name} count={item.count} cost={item.cost} id={item.id} key={count}/>
             );
             count += 1;
             totalCost += item.cost;
