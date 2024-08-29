@@ -235,6 +235,7 @@ main {
   }
 }
 .Order-Card-Wrapper {
+  position: relative;
   display: flex;
   box-shadow: 0px 0px 10px #6868684b;
   margin: 5px;
@@ -263,5 +264,43 @@ main {
     padding: 0;
     margin: 0;
     margin-inline: 10px;
+  }
+  .Order-Item-Info {
+    display: flex;
+    p {
+      font-weight: bold;
+      color: #816aff;
+      font-size: 22px;
+    }
+  }
+  .Loading {
+    width: 100%;
+    position: absolute;
+    background-color: #000000;
+    height: 100%;
+    border-radius: 10px;
+    opacity: 0.1;
+  }
+  .Circle {
+    position: absolute;
+    padding: 20px;
+    border: solid 7px #AAAAAA;
+    z-index: 0;
+    opacity: 0.7;
+    border-radius: 50px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .Circle-Wrapper {
+    position: absolute;
+    padding: 20px;
+    border: solid 7px #00000000;
+    border-top: solid 7px #FFFFFF;
+    z-index: 0;
+    border-radius: 50px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
   }
 }
