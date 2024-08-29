@@ -1,8 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
 
-function PendingCard(props) {
+function CompleteCard(props) {
 
     const axiosInstance = axios.create({
         baseURL: "http://localhost:30003",
@@ -15,7 +14,7 @@ function PendingCard(props) {
     const [toggle, setToggle] = useState({ display : 'none'});
     const [rotate, setRotate] = useState({ transform: "translate(-50%, -50%) rotate(0deg)"});
 
-    function handleComplete() {
+    function handlePending() {
         async function loading() {
             const sleep = msec => new Promise(resolve => setTimeout(resolve, msec));
             var deg = 0;
@@ -29,9 +28,8 @@ function PendingCard(props) {
         loading();
         var data = {
             uuid : props.uuid,
-            status : "complete"
+            status : "pending"
         }
-        var load = 0;
         axiosInstance.post("/update", data)
             .then(res => {
                 console.log(res.data);
@@ -56,11 +54,11 @@ function PendingCard(props) {
                 </div>
             </div>
             <div className="Order-Card-Buttons">
-                <button className="Order-Button" style={{ backgroundColor : '#2870db' }}>詳細</button>
-                <button className="Order-Button" onClick={handleComplete}>完成</button>
+                <button className="Order-Button" style={{ backgroundColor : '#2870db' }}>会計</button>
+                <button className="Order-Button" onClick={handlePending} style={{ backgroundColor : '#FF5050' }}>戻す</button>
             </div>
         </div>
     );
 }
 
-export default PendingCard;
+export default CompleteCard;
