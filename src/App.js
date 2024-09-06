@@ -7,6 +7,8 @@ import Cart from './Cart';
 import Ordered from './Ordered';
 import Confirm from './Confirm';
 import Orders from './Orders';
+import Payment from './Payment';
+import CustomerUI from './CustomerUI';
 function App() {
   return(
     <BrowserRouter>
@@ -19,6 +21,8 @@ function App() {
         <Route path="/ordered" element={<Ordered />} />
         <Route path="/confirm" element={<Confirm />} />
         <Route path="/orders" element={<Orders />} />
+        <Route path='/payment' element={< Payment />} />
+        <Route path='/customer' element={< CustomerUI />} />
         <Route path="*" element={<main><h1>404 Not Found</h1></main>} />
       </Routes>
     </BrowserRouter>

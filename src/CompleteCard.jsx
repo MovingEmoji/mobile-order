@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router";
 
 function CompleteCard(props) {
 
@@ -13,6 +15,8 @@ function CompleteCard(props) {
 
     const [toggle, setToggle] = useState({ display : 'none'});
     const [rotate, setRotate] = useState({ transform: "translate(-50%, -50%) rotate(0deg)"});
+    const [cookies, setCookie] = useCookies();
+    const navigate = useNavigate();
 
     function handlePending() {
         async function loading() {
@@ -36,6 +40,19 @@ function CompleteCard(props) {
             });
     }
 
+    function handlePayment() {
+        var data = {
+            uuid: props.uuid,
+            num: props.id,
+            total: props.total
+        }
+        axiosInstance.post("/setcustomer", props.uuid)
+            .then(res => {
+                setCookie("paymentUUID", props.uuid);
+                navigate("/payment");
+            });
+    }
+
     return(
         <div className="Order-Card-Wrapper">
             <div className="Loading-Wrapper" style={ toggle }>
@@ -54,7 +71,7 @@ function CompleteCard(props) {
                 </div>
             </div>
             <div className="Order-Card-Buttons">
-                <button className="Order-Button" style={{ backgroundColor : '#2870db' }}>会計</button>
+                <button className="Order-Button" style={{ backgroundColor : '#2870db' }} onClick={handlePayment}>会計</button>
                 <button className="Order-Button" onClick={handlePending} style={{ backgroundColor : '#FF5050' }}>戻す</button>
             </div>
         </div>
