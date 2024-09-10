@@ -36,13 +36,21 @@ function CustomerUI() {
                         );
                     }
                     setOrder(
-                        <div className="Orders" style={{ marginTop : '60px'}}>
+                        <div className="Orders" style={{ marginTop : '80px'}}>
                             <div className="Order-Contents" style={{ height : '85%'}}>
                                 <div className="Order-List" style={{ width : '100%'}}>
                                     { orders }
                                 </div>
                             </div>
                             <p style={{ textAlign : 'center', fontSize : '30px'}}>合計金額: {res.data.total} 円</p>
+                        </div>
+                    );
+                } else {
+                    setOrder(
+                        <div className="Orders" style={{ marginTop : '80px' , display : 'flex', justifyContent : 'center', alignItems : 'center'}}>
+                            <div className="Order-Contents" style={{ height : '85%'}}>
+                                <p style={{ fontSize : '30px' , textAlign : 'center', alignContent : 'center' }}>いらっしゃいませ<br></br>ご注文をどうぞ</p>
+                            </div>
                         </div>
                     );
                 }
