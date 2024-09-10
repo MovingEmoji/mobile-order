@@ -304,3 +304,97 @@ main {
     transform: translate(-50%, -50%) rotate(0deg);
   }
 }
+
+.Order-Info {
+  width: 50%;
+}
+
+.Add-Order {
+  width: 50%;
+}
+
+.Add-Items {
+  height: 15%;
+  box-shadow: 0px 0px 10px #6868684b;
+  margin: 5px;
+  margin-left: 10px;
+  border-radius: 10px;
+  display: flex;
+}
+
+.Add-Button {
+  width: 20%;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  background-color: #4d7cff;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+.Payment-Box {
+  height: 60%;
+  box-shadow: 0px 0px 10px #6868684b;
+  margin: 5px;
+  margin-left: 10px;
+  border-radius: 10px;
+  display: flex;
+}
+
+.Calc {
+  width: 50%;
+  box-shadow: 0px 0px 10px #6868684b;
+  margin: 5px;
+  border-radius: 10px;
+}
+
+.Calc-Viewer {
+  margin: 5px;
+  box-shadow: 0px 0px 10px #6868684b;
+  border-radius: 10px;
+  p {
+    margin: 0;
+    margin-inline: 10px;
+    font-size: 35px;
+    text-align: right;
+  }
+}
+
+.Calc-Row {
+  display: flex;
+  justify-content: center;
+}
+
+.Calc-Wrapper {
+  font-size: 35px;
+  color: #FFFFFF;
+  background-color: #4d7cff;
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+  width: 60px;
+  margin: 5px;
+}
+
+.Calc-Wrapper:active {
+  opacity: 0.8;
+}
+
+.Payment-Mode {
+  width: 15%;
+  box-shadow: 0px 0px 10px #6868684b;
+  margin: 5px;
+  border-radius: 10px;
+  display: grid;
+}
+
+.Payment-Button {
+  writing-mode: vertical-rl;
+  margin: 5px;
+  background-color: #6ED46E;
+  font-size: 18px;
+  color: #FFFFFF;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+}
