@@ -1,14 +1,38 @@
 import { useCookies } from "react-cookie";
 import CalcButton from "./CalcButton";
 import PaymentButton from "./PaymentButton";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { axiosInstance } from "./App";
+import PaymentCard from "./PaymentCard";
 
 function Payment() {
 
     const [cookies, setCookie] = useCookies();
+    const [total, setTotal] = useState(0);
+    const [items, setItems] = useState();
 
     useEffect(() => {
         setCookie("calc", 0);
+        axiosInstance.post("/customer", "get")
+        .then(res => {
+            if(res.data != "failed") {
+                const uuid = res.data.uuid;
+                axiosInstance.post("/order", {
+                    target : uuid,
+                })
+                    .then(res => {
+                        console.log(res.data);
+                        setTotal(res.data.total);
+                        var ItemList = [];
+                        for(const item of res.data.items) {
+                            ItemList.push(
+                                <PaymentCard name={item.name} image={item.image} count={item.count} cost={item.cost} key={ItemList.length}/>
+                            );
+                            setItems(ItemList);
+                        }
+                    });
+                }
+        })
     }, []);
 
     return(
@@ -16,9 +40,9 @@ function Payment() {
             <div className="Order-Contents" style={{ height : '100%' }}>
                 <div className="Order-Info">
                     <div className="Order-List" style={{ height : '85%', width : '100%'}}>
-
+                        {items}
                     </div>
-                    <p style={{ textAlign : 'center', fontSize : '25px', fontWeight : 'bold'}}>合計 : 0000 円</p>
+                    <p style={{ textAlign : 'center', fontSize : '25px', fontWeight : 'bold'}}>合計 : { total } 円</p>
                 </div>
                 <div className="Add-Order">
                     <div className="Add-Items">

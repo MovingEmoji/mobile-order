@@ -9,6 +9,7 @@ import Confirm from './Confirm';
 import Orders from './Orders';
 import Payment from './Payment';
 import CustomerUI from './CustomerUI';
+import axios from 'axios';
 function App() {
   return(
     <BrowserRouter>
@@ -29,3 +30,11 @@ function App() {
   )
 }
 export default App;
+
+export const axiosInstance = axios.create({
+  baseURL: "http://localhost:30003",
+  headers: {
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin": "*"
+            }
+});
