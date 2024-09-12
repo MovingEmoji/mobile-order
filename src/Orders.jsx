@@ -2,18 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import PendingCard from "./PendingCard";
 import CompleteCard from "./CompleteCard";
+import { axiosInstance } from "./App";
 
 function Orders() {
 
     const [pendingList, setPendingList] = useState();
     const [completeList, setCompleteList] = useState();
-    const axiosInstance = axios.create({
-        baseURL: "http://localhost:30003",
-        headers: {
-            'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin": "*"
-        }
-    });
+
     useEffect(() => {
         function getPending() {
             axiosInstance.get("/pendings")
