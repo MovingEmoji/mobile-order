@@ -4,25 +4,59 @@ import PaymentButton from "./PaymentButton";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "./App";
 import PaymentCard from "./PaymentCard";
+import { useNavigate } from "react-router";
 
 function Payment() {
 
-    const [cookies, setCookie] = useCookies();
+    const [cookies, setCookie, removeCookie] = useCookies();
     const [total, setTotal] = useState(0);
     const [items, setItems] = useState();
+    const [buttonstyle, setStyle] = useState();
+    const [otherOrders, setOrders] = useState();
+    const navigate = useNavigate();
+
+    function handleBack() {
+        axiosInstance.post("/setcustomer", "reset")
+            .then(resetRes => {
+                console.log(resetRes.data);
+                });
+        removeCookie("uuid");
+        removeCookie("paymentUUID");
+        navigate("/orders");
+    }
 
     useEffect(() => {
+
+        function getPayment() {
+            if(cookies.paymentUUID) {
+                axiosInstance.post("/getpayment", {
+                    target: cookies.paymentUUID
+                })
+                    .then(res => {
+                        console.log(res.data);
+                        if(res.data.status == "complete") {
+                            setTotal("お釣り " + res.data.change + " 円");
+                            setStyle({display : 'block'});
+                        } else if(res.data.status == "paypayPending") {
+                            setTotal("QRコードを読み込んでもらってください")
+                            setStyle({display : 'none'});
+                            
+                        }
+                    });
+            }
+        }
+
         setCookie("calc", 0);
         axiosInstance.post("/customer", "get")
         .then(res => {
             if(res.data != "failed") {
-                const uuid = res.data.uuid;
+                var uuid = res.data.uuid;
                 axiosInstance.post("/order", {
                     target : uuid,
                 })
                     .then(res => {
-                        console.log(res.data);
-                        setTotal(res.data.total);
+                        setTotal("合計 " + res.data.total + " 円");
+                        setCookie("uuid", res.data.uuid);
                         var ItemList = [];
                         for(const item of res.data.items) {
                             ItemList.push(
@@ -31,9 +65,23 @@ function Payment() {
                             setItems(ItemList);
                         }
                     });
-                }
+            } else {
+                setOrders(
+                    <div className="Add-Items">
+                        <button className="Add-Button">パンケーキ</button>
+                        <button className="Add-Button">ワッフル</button>
+                        <button className="Add-Button">だんご</button>
+                    </div>
+                );
+            }
         })
+        
+        const interval = setInterval(() => {
+            getPayment();
+        }, 1000);
+        return () => clearInterval(interval);
     }, []);
+    
 
     return(
         <div className="Orders">
@@ -42,14 +90,10 @@ function Payment() {
                     <div className="Order-List" style={{ height : '85%', width : '100%'}}>
                         {items}
                     </div>
-                    <p style={{ textAlign : 'center', fontSize : '25px', fontWeight : 'bold'}}>合計 : { total } 円</p>
+                    <p style={{ textAlign : 'center', fontSize : '25px', fontWeight : 'bold'}}>{total}</p>
                 </div>
                 <div className="Add-Order">
-                    <div className="Add-Items">
-                        <button className="Add-Button">パンケーキ</button>
-                        <button className="Add-Button">ワッフル</button>
-                        <button className="Add-Button">だんご</button>
-                    </div>
+                    {otherOrders}
                     <div className="Payment-Box">
                         <div className="Calc">
                             <div className="Calc-Viewer">
@@ -80,6 +124,9 @@ function Payment() {
                             <PaymentButton text="ＰＡＹＰＡＹ" />
                             <PaymentButton text="現金 / 預かり" />
                         </div>
+                    </div>
+                    <div className="Back-Wrapper">
+                        <button className="Back-Orders" onClick={handleBack} style={buttonstyle}>管理表にもどる</button>
                     </div>
                 </div>
             </div>
