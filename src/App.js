@@ -10,6 +10,7 @@ import Orders from './Orders';
 import Payment from './Payment';
 import CustomerUI from './CustomerUI';
 import axios from 'axios';
+import Login from './Login';
 function App() {
   return(
     <BrowserRouter>
@@ -24,6 +25,7 @@ function App() {
         <Route path="/orders" element={<Orders />} />
         <Route path='/payment' element={< Payment />} />
         <Route path='/customer' element={< CustomerUI />} />
+        <Route path='/login' element={<Login />} />
         <Route path="*" element={<main><h1>404 Not Found</h1></main>} />
       </Routes>
     </BrowserRouter>

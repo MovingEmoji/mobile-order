@@ -1,4 +1,4 @@
-import axios from "axios";
+import { axiosInstance } from './App';
 import jsQR from 'jsqr'
 import { useState, useRef, useEffect, createRef } from "react"
 
@@ -13,15 +13,6 @@ function Confirm() {
     const canvasRef = useRef();
     
     const videoRef = useRef();
-
-    const axiosInstance = axios.create({
-        //baseURL: "https://api.tec-festival.com",
-        baseURL: "http://localhost:30003",
-        headers: {
-            'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin": "*"
-        }
-    });
 
     function handleClick() {
         if(uuid !== "未検知です") {

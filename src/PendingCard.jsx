@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { useCookies } from "react-cookie";
 
 function PendingCard(props) {
 
@@ -13,6 +14,7 @@ function PendingCard(props) {
 
     const [toggle, setToggle] = useState({ display : 'none'});
     const [rotate, setRotate] = useState({ transform: "translate(-50%, -50%) rotate(0deg)"});
+    const [cookies] = useCookies();
 
     function handleComplete() {
         async function loading() {
@@ -27,6 +29,7 @@ function PendingCard(props) {
         setToggle({ display : 'block'});
         loading();
         var data = {
+            token: cookies.token,
             uuid : props.uuid,
             status : "complete"
         }

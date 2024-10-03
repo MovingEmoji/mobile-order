@@ -1,17 +1,9 @@
-import axios from "axios";
+import { axiosInstance } from "./App";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router";
 
 function CompleteCard(props) {
-
-    const axiosInstance = axios.create({
-        baseURL: "http://localhost:30003",
-        headers: {
-            'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin": "*"
-        }
-    });
 
     const [toggle, setToggle] = useState({ display : 'none'});
     const [rotate, setRotate] = useState({ transform: "translate(-50%, -50%) rotate(0deg)"});
@@ -31,6 +23,7 @@ function CompleteCard(props) {
         setToggle({ display : 'block'});
         loading();
         var data = {
+            token: cookies.token,
             uuid : props.uuid,
             status : "pending"
         }
@@ -42,13 +35,11 @@ function CompleteCard(props) {
 
     function handlePayment() {
         var data = {
-            uuid: props.uuid,
-            num: props.id,
-            total: props.total
+            token: cookies.token,
+            uuid: props.uuid
         }
-        axiosInstance.post("/setcustomer", props.uuid)
+        axiosInstance.post("/setcustomer", data)
             .then(res => {
-                setCookie("paymentUUID", props.uuid);
                 navigate("/payment");
             });
     }

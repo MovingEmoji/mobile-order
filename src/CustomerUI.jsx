@@ -1,17 +1,9 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { axiosInstance } from "./App";
 
 function CustomerUI() {
 
     const [order, setOrder] = useState();
-    
-    const axiosInstance = axios.create({
-        baseURL: "http://localhost:30003",
-        headers: {
-            'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin": "*"
-        }
-    });
 
     useEffect(() => {
         function getOrder() {

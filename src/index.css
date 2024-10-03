@@ -63,6 +63,9 @@ main {
   min-width: 350px;
   max-width: 430px;
   margin-inline: auto;
+  h1 {
+    text-align: center;
+  }
 }
 
 .Card-Wrapper {
@@ -213,6 +216,7 @@ main {
   width: 98vw;
   height: 87vh;
   border-radius: 20px;
+  background-color: #FFFFFF;
   box-shadow: 0px 0px 10px #6868684b;
 
   h2 {
@@ -420,4 +424,25 @@ main {
   font-weight: bold;
   color: #FFFFFF;
   box-shadow: 0px 0px 10px #6868684b;
+}
+
+.TextBox-Wrapper {
+  margin-top: 30px;
+  margin-inline: 10px;
+  font-size: 25px;
+  border: solid 1px #a5a5a5;
+  outline: none;
+  font-family: "M PLUS 1", sans-serif;
+  padding-bottom: 10px;
+  border-radius: 5px;
+}
+.Login-Wrapper {
+  margin: 10px;
+  margin-block: 30px;
+  font-size: 30px;
+  font-family: "M PLUS 1", sans-serif;
+  color: #FFFFFF;
+  background-color: #6ED46E;
+  border: none;
+  border-radius: 5px;
 }

@@ -9,14 +9,18 @@ import { useNavigate } from "react-router";
 function Payment() {
 
     const [cookies, setCookie, removeCookie] = useCookies();
-    const [total, setTotal] = useState(0);
+    const [total, setTotal] = useState("");
     const [items, setItems] = useState();
     const [buttonstyle, setStyle] = useState();
     const [otherOrders, setOrders] = useState();
     const navigate = useNavigate();
 
     function handleBack() {
-        axiosInstance.post("/setcustomer", "reset")
+        var data = {
+            token: cookies.token,
+            uuid: "reset"
+        }
+        axiosInstance.post("/setcustomer", data)
             .then(resetRes => {
                 console.log(resetRes.data);
                 });
@@ -27,59 +31,117 @@ function Payment() {
 
     useEffect(() => {
 
-        function getPayment() {
-            if(cookies.paymentUUID) {
-                axiosInstance.post("/getpayment", {
-                    target: cookies.paymentUUID
-                })
-                    .then(res => {
-                        console.log(res.data);
-                        if(res.data.status == "complete") {
-                            setTotal("お釣り " + res.data.change + " 円");
-                            setStyle({display : 'block'});
-                        } else if(res.data.status == "paypayPending") {
-                            setTotal("QRコードを読み込んでもらってください")
-                            setStyle({display : 'none'});
-                            
-                        }
-                    });
-            }
+        if(!cookies.token) {
+            setCookie("pastPage", "/payment");
+            window.location.href = ("/login");
         }
-
+        var data = {
+            token: cookies.token,
+            type: "get"
+        };
         setCookie("calc", 0);
-        axiosInstance.post("/customer", "get")
-        .then(res => {
-            if(res.data != "failed") {
-                var uuid = res.data.uuid;
-                axiosInstance.post("/order", {
-                    target : uuid,
-                })
-                    .then(res => {
-                        setTotal("合計 " + res.data.total + " 円");
-                        setCookie("uuid", res.data.uuid);
-                        var ItemList = [];
-                        for(const item of res.data.items) {
-                            ItemList.push(
-                                <PaymentCard name={item.name} image={item.image} count={item.count} cost={item.cost} key={ItemList.length}/>
+        function getPayment() {
+            axiosInstance.post("/customer", data)
+                .then(res => {
+                    if(res.data == "reject") {
+                        setCookie("pastPage", "/payment");
+                        removeCookie("token");
+                        window.location.href = ("/login");
+                    } else {
+                        if(res.data != "failed") {
+                            setOrders()
+                            var data = {
+                                token: cookies.token,
+                                target: res.data.uuid,
+                            }
+                            axiosInstance.post("/order", data)
+                                .then(orderRes => {
+                                    setTotal("合計 " + res.data.total + " 円");
+                                    var list = [];
+                                    for(const item of res.data.items) {
+                                        list.push(
+                                            <PaymentCard name={item.name} image={item.image} count={item.count} cost={item.cost} key={list.length}/>
+                                        );
+                                        setItems(list);
+                                    }
+                                });
+                        } else {
+                            setOrders(
+                                <div className="Add-Items">
+                                    <button className="Add-Button">パンケーキ</button>
+                                    <button className="Add-Button">ワッフル</button>
+                                    <button className="Add-Button">だんご</button>
+                                </div>
                             );
-                            setItems(ItemList);
                         }
-                    });
-            } else {
-                setOrders(
-                    <div className="Add-Items">
-                        <button className="Add-Button">パンケーキ</button>
-                        <button className="Add-Button">ワッフル</button>
-                        <button className="Add-Button">だんご</button>
-                    </div>
-                );
-            }
-        })
-        
+                    }
+                });
+        }
         const interval = setInterval(() => {
             getPayment();
         }, 1000);
         return () => clearInterval(interval);
+
+        // function getPayment() {
+        //     if(cookies.paymentUUID) {
+        //         axiosInstance.post("/getpayment", {
+        //             target: cookies.paymentUUID
+        //         })
+        //             .then(res => {
+        //                 console.log(res.data);
+        //                 if(res.data.status == "complete") {
+        //                     setTotal("お釣り " + res.data.change + " 円");
+        //                     setStyle({display : 'block'});
+        //                 } else if(res.data.status == "paypayPending") {
+        //                     setTotal("QRコードを読み込んでもらってください")
+        //                     setStyle({display : 'none'});
+                            
+        //                 }
+        //             });
+        //     }
+        // }
+
+        // if(!cookies.token) {
+        //     setCookie("pastPage", "/orders");
+        //     window.location.href = ("/login");
+        // }
+
+        
+        // setCookie("calc", 0);
+        // axiosInstance.post("/customer", "get")
+        // .then(res => {
+        //     if(res.data != "failed") {
+        //         var uuid = res.data.uuid;
+        //         axiosInstance.post("/order", {
+        //             target : uuid,
+        //         })
+        //             .then(res => {
+        //                 setTotal("合計 " + res.data.total + " 円");
+        //                 setCookie("uuid", res.data.uuid);
+        //                 var ItemList = [];
+        //                 for(const item of res.data.items) {
+        //                     ItemList.push(
+        //                         <PaymentCard name={item.name} image={item.image} count={item.count} cost={item.cost} key={ItemList.length}/>
+        //                     );
+        //                     setItems(ItemList);
+        //                 }
+        //             });
+        //     } else {
+        //         setOrders(
+        //             <div className="Add-Items">
+        //                 <button className="Add-Button">パンケーキ</button>
+        //                 <button className="Add-Button">ワッフル</button>
+        //                 <button className="Add-Button">だんご</button>
+        //             </div>
+        //         );
+        //     }
+        // })
+        
+        // const interval = setInterval(() => {
+        //     getPayment();
+        // }, 1000);
+        // return () => clearInterval(interval);
+        
     }, []);
     
 

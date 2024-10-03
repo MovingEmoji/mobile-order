@@ -2,21 +2,13 @@ import { useCookies } from "react-cookie";
 import { QRCodeCanvas } from "qrcode.react";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { axiosInstance } from "./App";
 
 function Ordered(props) {
 
     const navigate = useNavigate();
 
     const [status, setStatus] = useState("注文が完了しました。");
-
-    const axiosInstance = axios.create({
-        baseURL: "http://localhost:30003",
-        headers: {
-            'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin": "*"
-        }
-    });
 
     useEffect(() => {
         function getStatus() {
