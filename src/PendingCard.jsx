@@ -1,20 +1,14 @@
-import axios from "axios";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router";
+import { axiosInstance } from "./App";
 
 function PendingCard(props) {
 
-    const axiosInstance = axios.create({
-        baseURL: "http://localhost:30003",
-        headers: {
-            'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin": "*"
-        }
-    });
-
+    const navigate = useNavigate();
     const [toggle, setToggle] = useState({ display : 'none'});
     const [rotate, setRotate] = useState({ transform: "translate(-50%, -50%) rotate(0deg)"});
-    const [cookies] = useCookies();
+    const [cookies, setCookie] = useCookies();
 
     function handleComplete() {
         async function loading() {
@@ -40,6 +34,11 @@ function PendingCard(props) {
             });
     }
 
+    function handelInfo() {
+        setCookie("inquiryID", props.uuid);
+        navigate("/orderinfo");
+    }
+
     return(
         <div className="Order-Card-Wrapper">
             <div className="Loading-Wrapper" style={ toggle }>
@@ -58,7 +57,7 @@ function PendingCard(props) {
                 </div>
             </div>
             <div className="Order-Card-Buttons">
-                <button className="Order-Button" style={{ backgroundColor : '#2870db' }}>詳細</button>
+                <button className="Order-Button" style={{ backgroundColor : '#2870db' }} onClick={handelInfo}>詳細</button>
                 <button className="Order-Button" onClick={handleComplete}>完成</button>
             </div>
         </div>
