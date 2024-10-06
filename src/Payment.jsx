@@ -24,8 +24,6 @@ function Payment() {
             .then(resetRes => {
                 console.log(resetRes.data);
                 });
-        removeCookie("uuid");
-        removeCookie("paymentUUID");
         navigate("/orders");
     }
 
@@ -49,6 +47,7 @@ function Payment() {
                         window.location.href = ("/login");
                     } else {
                         if(res.data != "failed") {
+                            setCookie('uuid', res.data.uuid);
                             setOrders()
                             var data = {
                                 token: cookies.token,
@@ -56,13 +55,20 @@ function Payment() {
                             }
                             axiosInstance.post("/order", data)
                                 .then(orderRes => {
-                                    setTotal("合計 " + res.data.total + " 円");
                                     var list = [];
-                                    for(const item of res.data.items) {
+                                    for(const item of orderRes.data.items) {
                                         list.push(
                                             <PaymentCard name={item.name} image={item.image} count={item.count} cost={item.cost} key={list.length}/>
                                         );
                                         setItems(list);
+                                    }
+                                });
+                            axiosInstance.post("/getpayment", data)
+                                .then(paymentRes => {
+                                    if(paymentRes.data.status == "pending") {
+                                        setTotal("合計 " + paymentRes.data.total + " 円");
+                                    } else if(paymentRes.data.status == "complete") {
+                                        setTotal("お釣り " + paymentRes.data.change + " 円");
                                     }
                                 });
                         } else {
