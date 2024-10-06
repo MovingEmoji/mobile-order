@@ -11,6 +11,7 @@ import Payment from './Payment';
 import CustomerUI from './CustomerUI';
 import axios from 'axios';
 import Login from './Login';
+import OrderInfo from './OrderInfo';
 function App() {
   return(
     <BrowserRouter>
@@ -26,6 +27,7 @@ function App() {
         <Route path='/payment' element={< Payment />} />
         <Route path='/customer' element={< CustomerUI />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/orderinfo' element={<OrderInfo />} />
         <Route path="*" element={<main><h1>404 Not Found</h1></main>} />
       </Routes>
     </BrowserRouter>
@@ -34,7 +36,7 @@ function App() {
 export default App;
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:30003",
+  baseURL: "https://api.tec-festival.com",
   headers: {
             'Content-Type': 'application/json',
             "Access-Control-Allow-Origin": "*"
