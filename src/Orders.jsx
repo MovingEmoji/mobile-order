@@ -30,13 +30,13 @@ function Orders() {
                             for(const item of order.items) {
                                 switch(item.number) {
                                     case 1:
-                                        cake ++;
+                                        cake += item.count;
                                         break;
                                     case 2:
-                                        waffle ++;
+                                        waffle += item.count;
                                         break;
                                     case 3:
-                                        dango ++;
+                                        dango += item.count;
                                         break;
                                     default:
                                         break;
