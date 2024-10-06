@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
 import { axiosInstance } from "./App";
+import { useCookies } from "react-cookie";
 
 function CustomerUI() {
 
     const [order, setOrder] = useState();
+    const [cookies] = useCookies();
 
     useEffect(() => {
         function getOrder() {
-            axiosInstance.post("/customer", "test")
+            axiosInstance.post("/customer", {token: cookies.token})
             .then(res => {
                 if(res.data != "failed") {
                     axiosInstance.post("/getpayment", { 
+                        token: cookies.token,
                         target: res.data.uuid
                     })
                     .then(paymentRes => {
@@ -54,7 +57,11 @@ function CustomerUI() {
                                     </div>
                                 </div>
                             )
-                            axiosInstance.post("/setcustomer", "reset")
+                            var data = {
+                                token: cookies.token,
+                                uuid: "reset"
+                            }
+                            axiosInstance.post("/setcustomer", data)
                                 .then(resetRes => {
                                     console.log(resetRes.data);
                                 });
