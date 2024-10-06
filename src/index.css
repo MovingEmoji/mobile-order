@@ -412,6 +412,7 @@ main {
   margin-top: 20px;
   margin-left: 10px;
   display: flex;
+  justify-content: center;
 }
 
 .Back-Orders {
@@ -428,13 +429,14 @@ main {
 
 .TextBox-Wrapper {
   margin-top: 30px;
-  margin-inline: 10px;
+  margin-inline: auto;
   font-size: 25px;
   border: solid 1px #a5a5a5;
   outline: none;
   font-family: "M PLUS 1", sans-serif;
   padding-bottom: 10px;
   border-radius: 5px;
+  width: 90%;
 }
 .Login-Wrapper {
   margin: 10px;
@@ -445,4 +447,27 @@ main {
   background-color: #6ED46E;
   border: none;
   border-radius: 5px;
+}
+.OrderNumber-Wrapper {
+  text-align: center;
+  font-size: 35px;
+  padding: 10px;
+  margin: 0;
+}
+.OrderContent-Wrapper {
+  text-align: center;
+  font-size: 25px;
+}
+.Back-Button {
+  text-align: center;
+  color: #FFFFFF;
+  background-color: #FF5050;
+  border: none;
+  padding: 5px;
+  font-size: 20px;
+  letter-spacing: 2px;
+  border-radius: 3px;
+  transition: 0.5s;
+  width: 30%;
+  align-items: center;
 }
