@@ -31,7 +31,6 @@ function PaymentButton(props) {
 
         axiosInstance.post("/payment", data)
             .then(res => {
-                console.log(res.data);
                 setCookie("calc", 0);
                 play();
             });
