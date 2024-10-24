@@ -1,5 +1,10 @@
+import { axiosInstance } from "./App"
 import ItemCard from "./ItemCard"
 function ItemList() {
+    axiosInstance.post("/available", "1")
+        .then(res => {
+            console.log(res.data);
+        })
     return(
         <main>
             <ItemCard image="noimage.jpg" title="パンケーキ" text="どこかで見たことあるようなパンケーキ<br/>１パック５枚" cost="100" id="1"/>
