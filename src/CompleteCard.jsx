@@ -25,7 +25,7 @@ function CompleteCard(props) {
         var data = {
             token: cookies.token,
             uuid : props.uuid,
-            status : "pending"
+            status : "cooking"
         }
         axiosInstance.post("/update", data)
             .then(res => {

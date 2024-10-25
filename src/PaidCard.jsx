@@ -3,14 +3,14 @@ import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router";
 import { axiosInstance } from "./App";
 
-function PendingCard(props) {
+function PaidCard(props) {
 
     const navigate = useNavigate();
     const [toggle, setToggle] = useState({ display : 'none'});
     const [rotate, setRotate] = useState({ transform: "translate(-50%, -50%) rotate(0deg)"});
     const [cookies, setCookie] = useCookies();
 
-    function handleComplete() {
+    function handlePending() {
         async function loading() {
             const sleep = msec => new Promise(resolve => setTimeout(resolve, msec));
             var deg = 0;
@@ -25,7 +25,7 @@ function PendingCard(props) {
         var data = {
             token: cookies.token,
             uuid : props.uuid,
-            status : "cooking"
+            status : "complete"
         }
         var load = 0;
         axiosInstance.post("/update", data)
@@ -58,10 +58,10 @@ function PendingCard(props) {
             </div>
             <div className="Order-Card-Buttons">
                 <button className="Order-Button" style={{ backgroundColor : '#2870db' }} onClick={handelInfo}>詳細</button>
-                <button className="Order-Button" onClick={handleComplete}>調理</button>
+                <button className="Order-Button" onClick={handlePending} style={{ backgroundColor : '#FF5050' }}>戻す</button>
             </div>
         </div>
     );
 }
 
-export default PendingCard;
+export default PaidCard;

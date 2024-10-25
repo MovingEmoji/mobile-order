@@ -9,8 +9,9 @@ import { useNavigate } from "react-router";
 function Payment() {
 
     const [cookies, setCookie, removeCookie] = useCookies();
-    const [total, setTotal] = useState("");
-    const [items, setItems] = useState();
+    const [total, setTotal] = useState(0);
+    const [totalStatus, setTotalStatus] = useState("");
+    const [items, setItems] = useState([]);
     const [buttonstyle, setStyle] = useState();
     const [otherOrders, setOrders] = useState();
     const navigate = useNavigate();
@@ -27,6 +28,33 @@ function Payment() {
         navigate("/orders");
     }
 
+    function handleCake() {
+        var list = items;
+        list.push(
+            <PaymentCard name="パンケーキ" image="cake.png" count={1} cost={100} key={list.length}/>
+        )
+        cookies.total += 100;
+        setTotalStatus("合計 " + cookies.total + " 円");
+    }
+
+    function handleWaffle() {
+        var list = items;
+        list.push(
+            <PaymentCard name="ワッフル" image="waffle.png" count={1} cost={100} key={list.length}/>
+        )
+        cookies.total += 100;
+        setTotalStatus("合計 " + cookies.total + " 円");
+    }
+
+    function handleDango() {
+        var list = items;
+        list.push(
+            <PaymentCard name="だんご" image="dango.png" count={1} cost={100} key={list.length}/>
+        )
+        cookies.total += 100;
+        setTotalStatus("合計 " + cookies.total + " 円");
+    }
+
     useEffect(() => {
 
         if(!cookies.token) {
@@ -38,6 +66,7 @@ function Payment() {
             type: "get"
         };
         setCookie("calc", 0);
+        setCookie("total", 0);
         function getPayment() {
             axiosInstance.post("/customer", data)
                 .then(res => {
@@ -66,17 +95,17 @@ function Payment() {
                             axiosInstance.post("/getpayment", data)
                                 .then(paymentRes => {
                                     if(paymentRes.data.status == "pending") {
-                                        setTotal("合計 " + paymentRes.data.total + " 円");
+                                        setTotalStatus("合計 " + paymentRes.data.total + " 円");
                                     } else if(paymentRes.data.status == "complete") {
-                                        setTotal("お釣り " + paymentRes.data.change + " 円");
+                                        setTotalStatus("お釣り " + paymentRes.data.change + " 円");
                                     }
                                 });
                         } else {
                             setOrders(
                                 <div className="Add-Items">
-                                    <button className="Add-Button">パンケーキ</button>
-                                    <button className="Add-Button">ワッフル</button>
-                                    <button className="Add-Button">だんご</button>
+                                    <button className="Add-Button" onClick={handleCake}>パンケーキ</button>
+                                    <button className="Add-Button" onClick={handleWaffle}>ワッフル</button>
+                                    <button className="Add-Button" onClick={handleDango}>だんご</button>
                                 </div>
                             );
                         }
@@ -87,66 +116,6 @@ function Payment() {
             getPayment();
         }, 1000);
         return () => clearInterval(interval);
-
-        // function getPayment() {
-        //     if(cookies.paymentUUID) {
-        //         axiosInstance.post("/getpayment", {
-        //             target: cookies.paymentUUID
-        //         })
-        //             .then(res => {
-        //                 console.log(res.data);
-        //                 if(res.data.status == "complete") {
-        //                     setTotal("お釣り " + res.data.change + " 円");
-        //                     setStyle({display : 'block'});
-        //                 } else if(res.data.status == "paypayPending") {
-        //                     setTotal("QRコードを読み込んでもらってください")
-        //                     setStyle({display : 'none'});
-                            
-        //                 }
-        //             });
-        //     }
-        // }
-
-        // if(!cookies.token) {
-        //     setCookie("pastPage", "/orders");
-        //     window.location.href = ("/login");
-        // }
-
-        
-        // setCookie("calc", 0);
-        // axiosInstance.post("/customer", "get")
-        // .then(res => {
-        //     if(res.data != "failed") {
-        //         var uuid = res.data.uuid;
-        //         axiosInstance.post("/order", {
-        //             target : uuid,
-        //         })
-        //             .then(res => {
-        //                 setTotal("合計 " + res.data.total + " 円");
-        //                 setCookie("uuid", res.data.uuid);
-        //                 var ItemList = [];
-        //                 for(const item of res.data.items) {
-        //                     ItemList.push(
-        //                         <PaymentCard name={item.name} image={item.image} count={item.count} cost={item.cost} key={ItemList.length}/>
-        //                     );
-        //                     setItems(ItemList);
-        //                 }
-        //             });
-        //     } else {
-        //         setOrders(
-        //             <div className="Add-Items">
-        //                 <button className="Add-Button">パンケーキ</button>
-        //                 <button className="Add-Button">ワッフル</button>
-        //                 <button className="Add-Button">だんご</button>
-        //             </div>
-        //         );
-        //     }
-        // })
-        
-        // const interval = setInterval(() => {
-        //     getPayment();
-        // }, 1000);
-        // return () => clearInterval(interval);
         
     }, []);
     
@@ -158,7 +127,7 @@ function Payment() {
                     <div className="Order-List" style={{ height : '85%', width : '100%'}}>
                         {items}
                     </div>
-                    <p style={{ textAlign : 'center', fontSize : '25px', fontWeight : 'bold'}}>{total}</p>
+                    <p style={{ textAlign : 'center', fontSize : '25px', fontWeight : 'bold'}}>{totalStatus}</p>
                 </div>
                 <div className="Add-Order">
                     {otherOrders}

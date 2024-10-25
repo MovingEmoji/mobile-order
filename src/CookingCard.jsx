@@ -1,14 +1,37 @@
+import { axiosInstance } from "./App";
 import { useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router";
-import { axiosInstance } from "./App";
 
-function PendingCard(props) {
+function CookingCard(props) {
 
-    const navigate = useNavigate();
     const [toggle, setToggle] = useState({ display : 'none'});
     const [rotate, setRotate] = useState({ transform: "translate(-50%, -50%) rotate(0deg)"});
     const [cookies, setCookie] = useCookies();
+    const navigate = useNavigate();
+
+    function handlePending() {
+        async function loading() {
+            const sleep = msec => new Promise(resolve => setTimeout(resolve, msec));
+            var deg = 0;
+            for(let i = 0; i < 100; i++) {
+                setRotate({ transform: "translate(-50%, -50%) rotate(" + deg + "deg)"});
+                deg += 10;
+                await sleep(10);
+            }
+        }
+        setToggle({ display : 'block'});
+        loading();
+        var data = {
+            token: cookies.token,
+            uuid : props.uuid,
+            status : "pending"
+        }
+        axiosInstance.post("/update", data)
+            .then(res => {
+                console.log(res.data);
+            });
+    }
 
     function handleComplete() {
         async function loading() {
@@ -25,18 +48,13 @@ function PendingCard(props) {
         var data = {
             token: cookies.token,
             uuid : props.uuid,
-            status : "cooking"
+            status : "complete"
         }
         var load = 0;
         axiosInstance.post("/update", data)
             .then(res => {
                 console.log(res.data);
             });
-    }
-
-    function handelInfo() {
-        setCookie("inquiryID", props.uuid);
-        navigate("/orderinfo");
     }
 
     return(
@@ -57,11 +75,11 @@ function PendingCard(props) {
                 </div>
             </div>
             <div className="Order-Card-Buttons">
-                <button className="Order-Button" style={{ backgroundColor : '#2870db' }} onClick={handelInfo}>詳細</button>
-                <button className="Order-Button" onClick={handleComplete}>調理</button>
+                <button className="Order-Button" style={{ backgroundColor : '#FF5050' }} onClick={handlePending}>戻す</button>
+                <button className="Order-Button" onClick={handleComplete}>完成</button>
             </div>
         </div>
     );
 }
 
-export default PendingCard;
+export default CookingCard;

@@ -15,9 +15,13 @@ function Ordered(props) {
             axiosInstance.post("/status", cookies.orderID)
                 .then(res => {
                     if(res.data === "pending") {
-                        setStatus("商品を準備しています。")
+                        setStatus("注文を受け付けました。")
                     } else if(res.data === "complete") {
                         setStatus("商品が完成しました、お店へお越しください。")
+                    } else if(res.data === "cooking") {
+                        setStatus("調理を開始しました。しばらくお待ちください。")
+                    } else if(res.data === "paid") {
+                        setStatus("ご利用ありがとうございました。");
                     }
                 });
         }
