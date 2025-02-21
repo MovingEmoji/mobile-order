@@ -1,0 +1,40 @@
+main {
+    margin-top: 100px;
+
+    h1 {
+        text-align: center;
+        text-align: center;
+        font-family: "Noto Sans JP", serif;
+        font-optical-sizing: auto;
+        font-weight: 800;
+        font-style: normal;
+        font-size: 30px;
+        margin-bottom: 200px;
+    }
+
+    h2 {
+        text-align: center;
+        font-family: "Noto Sans JP", serif;
+        font-optical-sizing: auto;
+        font-weight: 800;
+        font-style: normal;
+        font-size: 30px;
+        letter-spacing: 3px;
+        border:30px solid transparent;
+        border-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewbox="0 0 90 90" stroke="none" fill="%23ffffff"><circle cx="30" cy="45" r="30"/><circle cx="60" cy="45" r="30"/><circle cx="45" cy="30" r="30"/><circle cx="45" cy="60" r="30"/></svg>') 30 fill/30px round;
+        width: 900px;
+        margin: auto;
+        margin-top: 100px;
+    }
+
+    .Image {
+        display: block;
+        margin: auto;
+        margin-top: 20px;
+        margin-bottom: 120px;
+    }
+    
+    .MarginWrapper {
+        margin-top: 50px;
+    }
+}

@@ -1,0 +1,25 @@
+header {
+    position: fixed;
+    width: 100%;
+    background-color: #FFFFFF;
+    box-shadow: 0px 2px 2px #6868684b;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10;
+
+    h1 {
+      font-size: 25px;
+      color: #333333;
+      padding-block: 10px;
+      margin: 0;
+      padding: 10px;
+      margin-inline: 20px;
+    }
+
+    .Buttons {
+        margin-inline: 20px;
+    }
+  }
