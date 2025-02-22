@@ -1,0 +1,80 @@
+.FormWrapper {
+    width: 900px;
+    margin: auto;
+    background-color: #FFFFFF;
+    padding: 0;
+    box-shadow: 0px 3px 3px #00000057;
+
+    .Warning {
+        text-align: center;
+        color: #ff2020;
+        font-size: 20px;
+    }
+
+    h3 {
+        text-align: center;
+        font-size: 25px;
+        padding: 20px;
+        margin: 0;
+        font-family: "Noto Sans JP", serif;
+        font-optical-sizing: auto;
+        font-weight: 800;
+        font-style: normal;
+        margin-bottom: 50px;
+    }
+
+    .TextBoxWrapper{
+
+        margin: 20px;
+        margin-inline: 50px;
+
+        p {
+            font-size: 18px;
+            padding: 0;
+            margin-block: 5px;
+        }
+        
+        .BackGroundWrapper {
+            
+            padding: 10px;
+            background-color: #f1f1f1;
+
+            .TextBox {
+                border: none;
+                background-color: #f1f1f1;
+                font-size: 22px;
+                font-family: "Noto Sans JP", serif;
+                font-optical-sizing: auto;
+                font-weight: 300;
+                font-style: normal;
+                color: #4b4b4b;
+                display: inline;
+                width: 100%;
+            }
+    
+            .TextBox:focus {
+                outline: none;
+            }
+        }
+    }
+
+    .ButtonWrapper {
+        display: flex;
+        justify-content: center;
+        padding: 50px;
+    }
+
+    .CheckBoxWrapper {
+        display: flex;
+        justify-content: center;
+
+        p {
+            font-size: 20px;
+            margin-inline: 5px;
+        }
+
+        .CheckBox {
+            transform: scale(1.2);
+        }
+    }
+}

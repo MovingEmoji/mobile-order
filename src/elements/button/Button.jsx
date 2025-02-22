@@ -12,11 +12,14 @@ function Button(props) {
         case "C":
             color = "#a1cb43";
             break;
+        default:
+            color = "";
+            break;
     }
     return(
         <button className="Button" style={{
             backgroundColor : color
-        }}>{ props.text }</button>
+        }} onClick={props.handle}>{ props.text }</button>
     );
 }
 export default Button;
