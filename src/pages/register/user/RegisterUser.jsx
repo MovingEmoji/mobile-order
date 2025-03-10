@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Button from '../../../elements/button/Button';
 import './registeruser.css';
 import { axiosInstance } from '../../../App';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router';
 
 function RegisterUser() {
 
@@ -12,6 +14,8 @@ function RegisterUser() {
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
     const [checked, setChecked] = useState(false);
+    const [cookies, setCookie] = useCookies(["userData"]);
+    const navigate = useNavigate();
 
     function handleRegister() {
         setMessage("");
@@ -27,8 +31,10 @@ function RegisterUser() {
                         axiosInstance.post("/registeruser", data)
                             .then(res => {
                                 var resdata = res.data;
-                                if(resdata != "reject") {
-                                    console.log(resdata);
+                                if(resdata !== "reject") {
+                                    setCookie("token", resdata.token);
+                                    console.log(cookies.token);
+                                    window.location.href = ("/");
                                 } else {
                                     setMessage("このメールアドレスはすでに登録されています");
                                 }

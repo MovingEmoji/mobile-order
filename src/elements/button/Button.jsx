@@ -12,6 +12,9 @@ function Button(props) {
         case "C":
             color = "#a1cb43";
             break;
+        case "D":
+            color = "#ff5D3A";
+            break;
         default:
             color = "";
             break;
